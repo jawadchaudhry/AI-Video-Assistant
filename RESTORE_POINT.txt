@@ -1,0 +1,16 @@
+Restore point created for the current code state.
+
+Backup location:
+C:\Users\KHURSHID\.codex\memories\AI-Video-Assistant--main-restores\restore-20260516-182322
+
+Stable state:
+Horizontal train in the main section + updated sidebar section headers + multi-turn chat input + auto-scroll + dark chat composer
+
+Files captured:
+- app/main.py
+- app/ui/components.py
+- app/ui/styles.py
+- src/audio/paths.py
+- src/audio/downloader.py
+- src/audio/converter.py
+- src/audio/chunker.py
