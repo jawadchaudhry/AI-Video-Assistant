@@ -19,6 +19,22 @@ class UploadedFileResult:
     source_id: str
 
 
+def get_uploaded_file_source_id(uploaded_file: Any) -> str:
+    """Return the stable source id used for a local upload."""
+    payload = _get_uploaded_bytes(uploaded_file)
+    content_hash = hashlib.sha256(payload).hexdigest()[:12]
+    return f"local_{content_hash}"
+
+
+def uploaded_file_already_exists(uploaded_file: Any) -> bool:
+    """Check whether the uploaded file already exists in downloads."""
+    source_id = get_uploaded_file_source_id(uploaded_file)
+    original_name = Path(getattr(uploaded_file, "name", "uploaded_media")).name
+    suffix = Path(original_name).suffix or ".mp4"
+    destination = ensure_source_download_dir(source_id) / f"{source_id}{suffix}"
+    return destination.exists()
+
+
 def _get_uploaded_bytes(uploaded_file: Any) -> bytes:
     """Read bytes from a Streamlit uploaded file or file-like object."""
     if hasattr(uploaded_file, "getbuffer"):

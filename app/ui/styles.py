@@ -159,8 +159,84 @@ h1, h2, h3, h4, h5, h6 {
     padding-right: 0.85rem !important;
 }
 
+.upload-guidance-tag {
+    display: inline-flex;
+    align-items: center;
+    margin: 0.15rem 0 0.45rem;
+    padding: 0.18rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(124, 58, 237, 0.16);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    color: var(--accent-glow) !important;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.workflow-tag {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 0 0.75rem;
+    padding: 0.18rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(124, 58, 237, 0.16);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    color: var(--accent-glow) !important;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.sidebar-workflow-tag {
+    margin: 0.65rem 0 0.75rem;
+}
+
+.pipeline-tag {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 0 0.85rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(6, 182, 212, 0.14);
+    border: 1px solid rgba(6, 182, 212, 0.32);
+    color: var(--accent-2) !important;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.upload-click-hint {
+    position: relative;
+    margin-top: -5.2rem;
+    margin-left: 0.95rem;
+    width: fit-content;
+    padding: 0.3rem 0.7rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.88);
+    color: #111118 !important;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    pointer-events: none;
+}
+
 [data-testid="stSidebar"] button[kind="secondary"] {
     background: var(--surface-2) !important;
+}
+
+[data-testid="stSidebar"] div[data-testid="stAlert"] {
+    font-size: 0.78rem !important;
+    line-height: 1.45 !important;
+}
+
+[data-testid="stSidebar"] div[data-testid="stAlert"] p {
+    font-size: 0.78rem !important;
+    line-height: 1.45 !important;
+    letter-spacing: 0.08em !important;
 }
 
 .section-subtitle.sidebar-note {

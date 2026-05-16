@@ -176,6 +176,10 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
             ).strip()
         else:
             st.caption("Upload a local video or audio file. It will be copied into downloads before processing.")
+            st.markdown(
+                '<div class="upload-guidance-tag">FILE UPLOADER</div>',
+                unsafe_allow_html=True,
+            )
             uploaded_file = st.file_uploader(
                 "Upload File",
                 type=ALLOWED_UPLOAD_TYPES,
@@ -183,8 +187,23 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
                 accept_multiple_files=False,
                 label_visibility="collapsed",
             )
+            st.markdown(
+                '<div class="upload-click-hint">Click Here!</div>',
+                unsafe_allow_html=True,
+            )
             if uploaded_file is not None:
                 source_value = uploaded_file.name
+                from src.audio import uploaded_file_already_exists
+
+                if uploaded_file_already_exists(uploaded_file):
+                    st.info(
+                        "This file is already uploaded, so please click inside the File Uploader Box and upload the new file."
+                    )
+                else:
+                    st.info(
+                        "File selected. Click Analyse to process it. "
+                        "If you want to replace it, use the FILE UPLOADER box above to choose another file."
+                    )
 
         st.markdown('<div class="sidebar-section-title">Transcript</div>', unsafe_allow_html=True)
         language = st.selectbox(
@@ -253,6 +272,10 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
 
         if st.session_state.pipeline_done:
             st.markdown("---")
+            st.markdown(
+                '<div class="workflow-tag sidebar-workflow-tag">AI WORKFLOW</div>',
+                unsafe_allow_html=True,
+            )
             for step, icon, label in [
                 ("audio", "A", "Audio Processing"),
                 ("transcript", "T", "Transcription"),

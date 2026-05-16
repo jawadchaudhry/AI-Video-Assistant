@@ -54,6 +54,7 @@ def render_pipeline_train() -> None:
     st.markdown(
         f"""
         <div class="train-shell">
+            <div class="pipeline-tag">AI PIPELINE</div>
             <div class="train-copy">
                 Extract clean audio, build searchable context, and ask follow-up questions without changing the original workflow.
             </div>
