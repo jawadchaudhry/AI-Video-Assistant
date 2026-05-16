@@ -1,27 +1,17 @@
 Restore point created for the current code state.
 
 Git commit:
-c514aa7
+a826737
 
 Snapshot summary:
-- URL and FILE source selection in the sidebar
-- Local upload flow saved into downloads
-- Stable source reuse for local uploads and URLs
-- Transcript, summary, extraction, and RAG pipeline preserved
-- Sidebar polish retained
+- AI WORKFLOW tag moved to the sidebar pipeline header area
+- Pipeline steps remain unchanged and intact
+- Sidebar uploader guidance and existing deduplication behavior preserved
+- All currently working UI and processing behavior retained
 
 Files captured in the stable snapshot:
 - app/main.py
 - app/ui/components.py
 - app/ui/styles.py
 - src/audio/__init__.py
-- src/audio/chunker.py
-- src/audio/converter.py
-- src/audio/downloader.py
-- src/audio/paths.py
 - src/audio/uploader.py
-- src/processing/extractor.py
-- src/storage/cache.py
-- src/storage/vector.py
-- src/transcription/whisper.py
-- tests/test_audio_upload.py
