@@ -1,18 +1,18 @@
 Restore point created for the current code state.
 
 Git commit:
-130f69b
+0151b07
 
 Snapshot summary:
-- Fixed message change during chat interactions
-- Completion message persists after processing
-- Message only changes when new file is selected
-- Chat SEND button no longer affects sidebar message
+- Added CLEAR ALL button to reset everything
+- Updated helper text for URL input to "Paste Youtube / Meeting Link Below:"
+- Capitalized train locomotive subtitles
+- Reduced font size for subtitles (0.65rem)
+- Enhanced progress bar gradient animation to match spinner
+- Fixed message box behavior during chat interactions
 
 Files captured in the stable snapshot:
 - app/main.py (updated)
-- src/audio/__init__.py
-- src/audio/uploader.py
-- src/audio/paths.py
-- src/storage/cache.py
+- app/ui/components.py (updated)
+- app/ui/styles.py (updated)
 - RESTORE_POINT.txt

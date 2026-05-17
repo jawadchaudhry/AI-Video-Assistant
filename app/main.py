@@ -396,8 +396,10 @@ def render_processing_overlay() -> None:
                     <div class="processing-progress-fill"></div>
                 </div>
                 <div class="processing-steps">
-                    <span>Extracting audio</span>
+                    <span>Extracting Audio</span>
+                    <span style="color: white; margin: 0 5px; font-size: 0.45rem; vertical-align: middle; line-height: 1;">&#9679;</span>
                     <span>Transcribing</span>
+                    <span style="color: white; margin: 0 5px; font-size: 0.45rem; vertical-align: middle; line-height: 1;">&#9679;</span>
                     <span>Building RAG</span>
                 </div>
             </div>

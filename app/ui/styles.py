@@ -896,6 +896,7 @@ label { color: var(--text-muted) !important; font-size: 0.8rem !important; }
 .processing-steps {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: 1.5rem;
     gap: 1rem;
     color: var(--text-muted);
