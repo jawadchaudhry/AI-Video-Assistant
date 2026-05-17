@@ -232,6 +232,11 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
 
                 source_id = get_uploaded_file_source_id(uploaded_file)
 
+                if "last_file_source_id" not in st.session_state or st.session_state.last_file_source_id != source_id:
+                    st.session_state.last_file_source_id = source_id
+                    if "file_processed_once" in st.session_state:
+                        del st.session_state.file_processed_once
+
                 if "file_new_status" not in st.session_state:
                     st.session_state.file_new_status = {}
 
@@ -241,8 +246,11 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
 
                 is_new_file = st.session_state.file_new_status.get(source_id, True)
 
-                if st.session_state.get("file_processing_complete"):
+                if st.session_state.get("file_processed_once"):
                     st.success("All Process Completed Successfully!")
+                elif st.session_state.get("file_processing_complete"):
+                    st.success("All Process Completed Successfully!")
+                    st.session_state.file_processed_once = True
                     if "file_processing_complete" in st.session_state:
                         del st.session_state.file_processing_complete
                 elif "processing_started" in st.session_state:
