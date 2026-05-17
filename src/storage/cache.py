@@ -2,6 +2,7 @@
 
 import hashlib
 import logging
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -122,17 +123,49 @@ def ensure_cache_dir(source_id: str) -> CachePaths:
     return paths
 
 
+def is_cache_stale(base_dir: Path) -> bool:
+    """
+    Check if cache directory is stale based on TTL.
+
+    Args:
+        base_dir: Cache directory path.
+
+    Returns:
+        True if cache is stale or doesn't exist, False otherwise.
+    """
+    if not base_dir.exists():
+        return True
+
+    config = get_config()
+    cache_age_days = (time.time() - base_dir.stat().st_mtime) / 86400
+
+    if cache_age_days > config.cache_ttl_days:
+        logger.info(f"Cache stale: {cache_age_days:.1f} days old (TTL: {config.cache_ttl_days} days)")
+        return True
+
+    return False
+
+
 def load_transcript(transcript_path: Path) -> str | None:
     """
-    Load cached transcript if exists.
+    Load cached transcript if exists and not stale.
 
     Args:
         transcript_path: Path to transcript file.
 
     Returns:
-        Transcript text or None if not found.
+        Transcript text or None if not found or stale.
     """
     if transcript_path.exists():
+        config = get_config()
+        cache_dir = transcript_path.parent
+
+        if is_cache_stale(cache_dir):
+            logger.info(f"Cache expired, removing: {transcript_path}")
+            import shutil
+            shutil.rmtree(cache_dir, ignore_errors=True)
+            return None
+
         logger.info(f"Loading cached transcript: {transcript_path}")
         return transcript_path.read_text(encoding="utf-8")
     return None

@@ -1,6 +1,7 @@
 """Whisper transcription using faster-whisper for efficient audio-to-text."""
 
 import logging
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Optional
 
@@ -61,7 +62,7 @@ def transcribe_chunk(chunk_path: str | Path) -> str:
 
 def transcribe_all(chunks: list[str | Path], language: str = "english") -> str:
     """
-    Transcribe all audio chunks and combine results.
+    Transcribe all audio chunks in parallel and combine results.
 
     Args:
         chunks: List of paths to audio chunk files.
@@ -70,13 +71,24 @@ def transcribe_all(chunks: list[str | Path], language: str = "english") -> str:
     Returns:
         Combined transcribed text.
     """
-    logger.info(f"Transcribing {len(chunks)} audio chunks")
+    logger.info(f"Transcribing {len(chunks)} audio chunks in parallel")
 
-    text_parts = []
+    text_parts = [None] * len(chunks)
 
-    for i, chunk in enumerate(chunks):
-        logger.info(f"Processing chunk {i+1}/{len(chunks)}")
-        text_parts.append(transcribe_chunk(chunk))
+    with ThreadPoolExecutor(max_workers=min(4, len(chunks))) as executor:
+        futures = {
+            executor.submit(transcribe_chunk, chunk): i
+            for i, chunk in enumerate(chunks)
+        }
+
+        for future in as_completed(futures):
+            idx = futures[future]
+            try:
+                text_parts[idx] = future.result()
+                logger.info(f"Chunk {idx+1}/{len(chunks)} completed")
+            except Exception as exc:
+                logger.error(f"Chunk {idx+1} failed: {exc}")
+                text_parts[idx] = ""
 
     result = " ".join(text_parts).strip()
     logger.info(f"Transcription complete: {len(result)} characters")

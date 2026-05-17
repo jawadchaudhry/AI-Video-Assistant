@@ -20,7 +20,7 @@ class AppConfig:
     downloads_dir: Path = field(init=False)
 
     # Whisper settings
-    whisper_model: str = "base"
+    whisper_model: str = "tiny"
     whisper_device: str = "cpu"
     whisper_compute_type: str = "int8"
     whisper_beam_size: int = 5
@@ -31,7 +31,7 @@ class AppConfig:
     audio_channels: int = 1
 
     # LLM settings
-    llm_model: str = "mistral-small-latest"
+    llm_model: str = "mistral-tiny"
     llm_temperature: float = 0.3
 
     # Embedding settings
@@ -39,10 +39,10 @@ class AppConfig:
     embedding_device: str = "cpu"
 
     # RAG settings
-    rag_chunk_size: int = 500
+    rag_chunk_size: int = 300
     rag_chunk_overlap: int = 50
     rag_retriever_k: int = 6
-    rag_retriever_fetch_k: int = 20
+    rag_retriever_fetch_k: int = 10
     rag_search_type: str = "mmr"
 
     # Processing settings
@@ -50,6 +50,9 @@ class AppConfig:
     summary_chunk_overlap: int = 200
     max_transcript_length: int = 12000
     max_title_length_chars: int = 2000
+
+    # Cache settings
+    cache_ttl_days: int = 7
 
     def __post_init__(self):
         """Set computed paths and load environment variables."""

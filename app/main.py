@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 import sys
+import time
 from typing import Any
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -74,6 +75,7 @@ def run_pipeline(source: str, language: str) -> None:
 
     st.session_state.processing = True
     st.session_state.pipeline_steps = {"audio": "active"}
+    start_time = time.time()
 
     try:
         source_id = generate_source_id(source)
@@ -82,11 +84,19 @@ def run_pipeline(source: str, language: str) -> None:
         transcript = load_transcript(paths.transcript)
 
         if transcript is None:
-            chunks = process_input(source)
+            with st.spinner("Extracting audio..."):
+                chunks = process_input(source)
+            elapsed = time.time() - start_time
+            st.success(f"Audio extracted in {elapsed:.1f}s")
+
             st.session_state.pipeline_steps["audio"] = "done"
             st.session_state.pipeline_steps["transcript"] = "active"
 
-            transcript = transcribe_all(chunks, language)
+            with st.spinner("Transcribing audio..."):
+                transcribe_start = time.time()
+                transcript = transcribe_all(chunks, language)
+                st.success(f"Transcribed in {time.time()-transcribe_start:.1f}s")
+
             save_transcript(transcript, paths.transcript)
             st.session_state.pipeline_steps["transcript"] = "done"
         else:
@@ -94,22 +104,37 @@ def run_pipeline(source: str, language: str) -> None:
             st.session_state.pipeline_steps["transcript"] = "done"
 
         st.session_state.pipeline_steps["title"] = "active"
-        title = generate_title(transcript)
+        with st.spinner("Generating title..."):
+            title_start = time.time()
+            title = generate_title(transcript)
+            st.success(f"Title generated in {time.time()-title_start:.1f}s")
         st.session_state.pipeline_steps["title"] = "done"
 
         st.session_state.pipeline_steps["summary"] = "active"
-        summary = summarize(transcript)
+        with st.spinner("Generating summary..."):
+            summary_start = time.time()
+            summary = summarize(transcript)
+            st.success(f"Summary generated in {time.time()-summary_start:.1f}s")
         st.session_state.pipeline_steps["summary"] = "done"
 
         st.session_state.pipeline_steps["extract"] = "active"
-        action_items = extract_action_items(transcript)
-        decisions = extract_key_decisions(transcript)
-        questions = extract_questions(transcript)
+        with st.spinner("Extracting key insights..."):
+            extract_start = time.time()
+            action_items = extract_action_items(transcript)
+            decisions = extract_key_decisions(transcript)
+            questions = extract_questions(transcript)
+            st.success(f"Insights extracted in {time.time()-extract_start:.1f}s")
         st.session_state.pipeline_steps["extract"] = "done"
 
         st.session_state.pipeline_steps["rag"] = "active"
-        rag_chain = create_rag_chain(transcript, paths.chroma)
+        with st.spinner("Building chat engine..."):
+            rag_start = time.time()
+            rag_chain = create_rag_chain(transcript, paths.chroma)
+            st.success(f"Chat engine ready in {time.time()-rag_start:.1f}s")
         st.session_state.pipeline_steps["rag"] = "done"
+
+        total_time = time.time() - start_time
+        st.success(f"Processing complete! Total time: {total_time:.1f}s")
 
         st.session_state.result = {
             "title": title,
