@@ -1,21 +1,17 @@
 Restore point created for the current code state.
 
 Git commit:
-7f3fda9
+3990d1b
 
 Snapshot summary:
-- Enhanced FILE upload status messages
-- Message flow: Before ANALYZE -> On ANALYZE click -> After completion
-- Shows appropriate messages at each stage:
-  * "File Uploaded Successfuly... Click ANALYZE..."
-  * "Processing Start for the Uploaded File!"
-  * "All Process Completed Successfully!"
-- Exported get_uploaded_file_source_id function from audio module
-- Session state tracking for file upload status
+- Completion message persists after chat interactions
+- 'All Process Completed Successfully!' stays visible after sending chat messages
+- Resets only when a new file is selected
+- Added file_processed_once session state flag
 
 Files captured in the stable snapshot:
 - app/main.py (updated)
-- src/audio/__init__.py (updated)
+- src/audio/__init__.py
 - src/audio/uploader.py
 - src/audio/paths.py
 - src/storage/cache.py

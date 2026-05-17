@@ -232,7 +232,12 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
 
                 source_id = get_uploaded_file_source_id(uploaded_file)
 
-                if "last_file_source_id" not in st.session_state or st.session_state.last_file_source_id != source_id:
+                if "last_file_source_id" not in st.session_state:
+                    st.session_state.last_file_source_id = source_id
+
+                is_new_file_selection = st.session_state.get("last_file_source_id") != source_id
+
+                if is_new_file_selection:
                     st.session_state.last_file_source_id = source_id
                     if "file_processed_once" in st.session_state:
                         del st.session_state.file_processed_once
