@@ -123,6 +123,38 @@ def ensure_cache_dir(source_id: str) -> CachePaths:
     return paths
 
 
+def rename_cache_folder(source_id: str, title: str) -> CachePaths:
+    """
+    Rename cache folder to include video title for better readability.
+
+    Args:
+        source_id: Original source identifier (e.g., 'youtube_Ty8gcCKuwNI')
+        title: Video title to append
+
+    Returns:
+        Updated CachePaths object with new folder name.
+    """
+    config = get_config()
+
+    safe_title = "".join(c for c in title[:20] if c.isalnum() or c in " -_").strip()
+    new_folder_name = f"{source_id} - ({safe_title})"
+
+    old_dir = config.cache_dir / source_id
+    new_dir = config.cache_dir / new_folder_name
+
+    if old_dir.exists() and old_dir != new_dir:
+        import shutil
+        shutil.move(str(old_dir), str(new_dir))
+        logger.info(f"Renamed cache folder to: {new_folder_name}")
+
+    return CachePaths(
+        base_dir=new_dir,
+        transcript=new_dir / "transcript.txt",
+        summary=new_dir / "summary.txt",
+        chroma=new_dir / "chroma",
+    )
+
+
 def is_cache_stale(base_dir: Path) -> bool:
     """
     Check if cache directory is stale based on TTL.

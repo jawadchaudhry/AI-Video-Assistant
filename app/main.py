@@ -69,7 +69,7 @@ def run_pipeline(source: str, language: str) -> None:
         generate_title,
         summarize,
     )
-    from src.storage import ensure_cache_dir, generate_source_id, load_transcript, save_transcript
+    from src.storage import ensure_cache_dir, generate_source_id, load_transcript, save_transcript, rename_cache_folder
     from src.storage.vector import create_rag_chain
     from src.transcription import transcribe_all
 
@@ -109,6 +109,8 @@ def run_pipeline(source: str, language: str) -> None:
             title = generate_title(transcript)
             st.success(f"Title generated in {time.time()-title_start:.1f}s")
         st.session_state.pipeline_steps["title"] = "done"
+
+        paths = rename_cache_folder(source_id, title)
 
         st.session_state.pipeline_steps["summary"] = "active"
         with st.spinner("Generating summary..."):
