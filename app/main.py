@@ -201,7 +201,7 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
                     )
                 else:
                     st.info(
-                        "File selected. Click Analyse to process it. "
+                        "File selected. Click Analyze to process it. "
                         "If you want to replace it, use the FILE UPLOADER box above to choose another file."
                     )
 
@@ -260,7 +260,7 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
                 </style>
                 <div class="processing-loader">
                     <div class="spinner-ring"></div>
-                    <div class="processing-text">ANALYSING VIDEO</div>
+                    <div class="processing-text">ANALYZING VIDEO</div>
                     <div class="processing-subtext">Please wait...</div>
                 </div>
                 """,
@@ -268,7 +268,7 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
             )
             run_btn = False
         else:
-            run_btn = st.button("Analyse", use_container_width=True)
+            run_btn = st.button("Analyze", use_container_width=True)
 
         if st.session_state.pipeline_done:
             st.markdown("---")
@@ -277,12 +277,12 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
                 unsafe_allow_html=True,
             )
             for step, icon, label in [
-                ("audio", "A", "Audio Processing"),
-                ("transcript", "T", "Transcription"),
-                ("title", "N", "Title Generation"),
-                ("summary", "S", "Summarisation"),
-                ("extract", "E", "Extraction"),
-                ("rag", "R", "RAG Engine"),
+                ("audio", "", "Audio Processing"),
+                ("transcript", "", "Transcription"),
+                ("title", "", "Title Generation"),
+                ("summary", "", "Summarization"),
+                ("extract", "", "Extraction"),
+                ("rag", "", "RAG Engine"),
             ]:
                 render_step_bar(label, step, icon)
 
@@ -295,7 +295,7 @@ def render_main_area() -> None:
         <div class="hero-shell">
             <div class="badge badge-cyan">Meeting intelligence workspace</div>
             <div class="hero-title hero-title-spaced">Video & Meeting AI Chat-Assistant</div>
-            <div class="hero-sub">Transcribe | Summarise | Chat with your videos and meetings</div>
+            <div class="hero-sub">Transcribe | Summarize | Chat with your videos and meetings</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -319,7 +319,7 @@ def render_processing_overlay() -> None:
                     }
                 </style>
                 <div class="loader-ring"></div>
-                <div class="processing-heading">Analysing Video</div>
+                <div class="processing-heading">Analyzing Video</div>
                 <div class="processing-subheading">Processing your video...</div>
                 <div class="processing-progress">
                     <div class="processing-progress-fill"></div>

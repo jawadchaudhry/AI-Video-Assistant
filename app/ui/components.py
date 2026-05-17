@@ -26,11 +26,12 @@ def render_step_bar(label: str, key: str, icon: str) -> None:
     """
     steps = st.session_state.get("pipeline_steps", {})
     css = step_status(steps, key)
+    step_label = f"{icon} {label}".strip() if icon else label
     st.markdown(
         f"""
         <div class="status-bar">
             <div class="status-dot {css}"></div>
-            <span>{icon} {label}</span>
+            <span>{step_label}</span>
         </div>""",
         unsafe_allow_html=True,
     )
@@ -64,7 +65,7 @@ def render_pipeline_train() -> None:
                 <div class="train-stop">
                     <div class="train-node {node_class('audio')}"></div>
                     <div class="train-stop-copy">
-                        <div class="train-stop-title">Audio extraction</div>
+                        <div class="train-stop-title">Audio Extraction</div>
                         <div class="train-stop-subtitle">Extract clean audio</div>
                     </div>
                 </div>
@@ -72,7 +73,7 @@ def render_pipeline_train() -> None:
                 <div class="train-stop">
                     <div class="train-node {node_class('summary')}"></div>
                     <div class="train-stop-copy">
-                        <div class="train-stop-title">Transcript + summary</div>
+                        <div class="train-stop-title">Transcript + Summary</div>
                         <div class="train-stop-subtitle">Build searchable context</div>
                     </div>
                 </div>
@@ -80,7 +81,7 @@ def render_pipeline_train() -> None:
                 <div class="train-stop">
                     <div class="train-node {node_class('rag')}"></div>
                     <div class="train-stop-copy">
-                        <div class="train-stop-title">RAG chat</div>
+                        <div class="train-stop-title">RAG Chat</div>
                         <div class="train-stop-subtitle">Ask follow-up questions</div>
                     </div>
                 </div>
@@ -100,11 +101,11 @@ def render_empty_state() -> None:
             Ready to analyze
         </div>
         <div class="section-subtitle empty-state-copy">
-            Paste a YouTube link or upload a local file in the sidebar, choose a language, and click <strong>Analyse</strong> to start.
+            Paste a YouTube link or upload a local file in the sidebar, choose a language, and click <strong>Analyze</strong> to start.
         </div>
         <div class="empty-state-badges">
             <span class="badge badge-purple">Transcription</span>
-            <span class="badge badge-cyan">Summarisation</span>
+            <span class="badge badge-cyan">Summarization</span>
             <span class="badge badge-green">RAG Chat</span>
         </div>
     </div>""", unsafe_allow_html=True)
