@@ -9,9 +9,26 @@ Snapshot summary:
 - Sidebar uploader guidance and existing deduplication behavior preserved
 - All currently working UI and processing behavior retained
 
+BUG FIX: Video re-upload handling - preventing duplicate folder creation
+Fixed in both URL and FILE modes:
+- src/storage/cache.py:
+  * get_cache_paths() - now searches for renamed cache folders
+  * rename_cache_folder() - handles already-renamed folders
+- src/audio/paths.py:
+  * get_source_download_dir() - now searches for renamed download folders
+  * rename_download_folder() - handles already-renamed folders
+
+Behavior after fix:
+- When re-uploading same video (FILE mode), finds existing renamed folders
+- Uses existing cache and download folders instead of creating duplicates
+- Transcript is reused without re-processing
+- Both URL and FILE modes now work correctly for re-uploads
+
 Files captured in the stable snapshot:
 - app/main.py
 - app/ui/components.py
 - app/ui/styles.py
 - src/audio/__init__.py
 - src/audio/uploader.py
+- src/storage/cache.py (updated)
+- src/audio/paths.py (updated)

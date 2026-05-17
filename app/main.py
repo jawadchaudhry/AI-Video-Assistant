@@ -61,7 +61,7 @@ def reset_pipeline_state() -> None:
 
 
 def run_pipeline(source: str, language: str) -> None:
-    from src.audio import process_input
+    from src.audio import process_input, rename_download_folder
     from src.processing import (
         extract_action_items,
         extract_key_decisions,
@@ -111,6 +111,8 @@ def run_pipeline(source: str, language: str) -> None:
         st.session_state.pipeline_steps["title"] = "done"
 
         paths = rename_cache_folder(source_id, title)
+
+        rename_download_folder(source_id, title)
 
         st.session_state.pipeline_steps["summary"] = "active"
         with st.spinner("Generating summary..."):

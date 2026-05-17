@@ -7,6 +7,7 @@ from src.audio.uploader import (
     save_uploaded_file,
     uploaded_file_already_exists,
 )
+from src.audio.paths import rename_download_folder
 
 __all__ = [
     "download_youtube_audio",
@@ -15,4 +16,5 @@ __all__ = [
     "process_input",
     "save_uploaded_file",
     "uploaded_file_already_exists",
+    "rename_download_folder",
 ]

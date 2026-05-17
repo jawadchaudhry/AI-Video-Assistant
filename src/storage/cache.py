@@ -99,6 +99,18 @@ def get_cache_paths(source_id: str) -> CachePaths:
     config = get_config()
     base_dir = config.cache_dir / source_id
 
+    if not base_dir.exists():
+        try:
+            if config.cache_dir.exists():
+                for existing_dir in config.cache_dir.iterdir():
+                    if existing_dir.is_dir():
+                        dir_name = existing_dir.name
+                        if dir_name.startswith(source_id) or source_id.startswith(dir_name.split(" - ")[0] if " - " in dir_name else dir_name):
+                            base_dir = existing_dir
+                            break
+        except Exception:
+            pass
+
     return CachePaths(
         base_dir=base_dir,
         transcript=base_dir / "transcript.txt",
@@ -142,16 +154,33 @@ def rename_cache_folder(source_id: str, title: str) -> CachePaths:
     old_dir = config.cache_dir / source_id
     new_dir = config.cache_dir / new_folder_name
 
+    if new_dir.exists():
+        return CachePaths(
+            base_dir=new_dir,
+            transcript=new_dir / "transcript.txt",
+            summary=new_dir / "summary.txt",
+            chroma=new_dir / "chroma",
+        )
+
     if old_dir.exists() and old_dir != new_dir:
         import shutil
         shutil.move(str(old_dir), str(new_dir))
         logger.info(f"Renamed cache folder to: {new_folder_name}")
 
+    if old_dir.exists():
+        return CachePaths(
+            base_dir=old_dir,
+            transcript=old_dir / "transcript.txt",
+            summary=old_dir / "summary.txt",
+            chroma=old_dir / "chroma",
+        )
+
+    paths = get_cache_paths(source_id)
     return CachePaths(
-        base_dir=new_dir,
-        transcript=new_dir / "transcript.txt",
-        summary=new_dir / "summary.txt",
-        chroma=new_dir / "chroma",
+        base_dir=paths.base_dir,
+        transcript=paths.base_dir / "transcript.txt",
+        summary=paths.base_dir / "summary.txt",
+        chroma=paths.base_dir / "chroma",
     )
 
 
