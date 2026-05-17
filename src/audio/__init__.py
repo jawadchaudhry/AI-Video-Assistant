@@ -6,6 +6,7 @@ from src.audio.chunker import chunk_audio, process_input
 from src.audio.uploader import (
     save_uploaded_file,
     uploaded_file_already_exists,
+    get_uploaded_file_source_id,
 )
 from src.audio.paths import rename_download_folder
 
@@ -16,5 +17,6 @@ __all__ = [
     "process_input",
     "save_uploaded_file",
     "uploaded_file_already_exists",
+    "get_uploaded_file_source_id",
     "rename_download_folder",
 ]

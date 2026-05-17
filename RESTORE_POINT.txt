@@ -1,28 +1,14 @@
 Restore point created for the current code state.
 
 Git commit:
-a826737
+bbe92f8
 
 Snapshot summary:
-- AI WORKFLOW tag moved to the sidebar pipeline header area
-- Pipeline steps remain unchanged and intact
-- Sidebar uploader guidance and existing deduplication behavior preserved
-- All currently working UI and processing behavior retained
-
-BUG FIX: Video re-upload handling - preventing duplicate folder creation
-Fixed in both URL and FILE modes:
-- src/storage/cache.py:
-  * get_cache_paths() - now searches for renamed cache folders
-  * rename_cache_folder() - handles already-renamed folders
-- src/audio/paths.py:
-  * get_source_download_dir() - now searches for renamed download folders
-  * rename_download_folder() - handles already-renamed folders
-
-Behavior after fix:
-- When re-uploading same video (FILE mode), finds existing renamed folders
-- Uses existing cache and download folders instead of creating duplicates
-- Transcript is reused without re-processing
-- Both URL and FILE modes now work correctly for re-uploads
+- Fixed video re-upload handling for FILE mode
+- Enhanced folder lookup to find renamed cache/download folders
+- Fixed rename functions to handle already-renamed folders
+- Both URL and FILE modes now correctly reuse existing folders
+- No more duplicate folder creation or errors on re-upload
 
 Files captured in the stable snapshot:
 - app/main.py
@@ -30,5 +16,7 @@ Files captured in the stable snapshot:
 - app/ui/styles.py
 - src/audio/__init__.py
 - src/audio/uploader.py
-- src/storage/cache.py (updated)
 - src/audio/paths.py (updated)
+- src/storage/__init__.py
+- src/storage/cache.py (updated)
+- RESTORE_POINT.txt

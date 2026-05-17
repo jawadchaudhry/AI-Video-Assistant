@@ -47,6 +47,7 @@ def init_session_state() -> None:
         "source_mode": "URL",
         "pipeline_source": None,
         "pipeline_language": "english",
+        "uploaded_file_is_new": None,
     }
     for key, default in defaults.items():
         if key not in st.session_state:
@@ -151,6 +152,9 @@ def run_pipeline(source: str, language: str) -> None:
         }
         st.session_state.pipeline_done = True
         st.session_state.processing = False
+        st.session_state.file_processing_complete = True
+        if "processing_started" in st.session_state:
+            del st.session_state.processing_started
         st.rerun()
 
     except Exception as exc:
@@ -158,6 +162,8 @@ def run_pipeline(source: str, language: str) -> None:
             if st.session_state.pipeline_steps.get(key) == "active":
                 st.session_state.pipeline_steps[key] = "pending"
         st.session_state.processing = False
+        if "processing_started" in st.session_state:
+            del st.session_state.processing_started
         st.error(f"Error: {exc}")
 
 
@@ -222,17 +228,36 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
             )
             if uploaded_file is not None:
                 source_value = uploaded_file.name
-                from src.audio import uploaded_file_already_exists
+                from src.audio import uploaded_file_already_exists, get_uploaded_file_source_id
 
-                if uploaded_file_already_exists(uploaded_file):
-                    st.info(
-                        ' Said File(s), Already Uploaded, Just Hit: "ANALYZE" Button  |  For New Uploadings, Click Inside the "UPLOADER BOX" Then Hit: "ANALYZE" Button Again. '
-                    )
+                source_id = get_uploaded_file_source_id(uploaded_file)
+
+                if "file_new_status" not in st.session_state:
+                    st.session_state.file_new_status = {}
+
+                if source_id not in st.session_state.file_new_status:
+                    file_exists = uploaded_file_already_exists(uploaded_file)
+                    st.session_state.file_new_status[source_id] = not file_exists
+
+                is_new_file = st.session_state.file_new_status.get(source_id, True)
+
+                if st.session_state.get("file_processing_complete"):
+                    st.success("All Process Completed Successfully!")
+                    if "file_processing_complete" in st.session_state:
+                        del st.session_state.file_processing_complete
+                elif "processing_started" in st.session_state:
+                    st.info("Processing Start for the Uploaded File!")
+                elif is_processing:
+                    pass
                 else:
-                    st.info(
-                        "File selected. Click Analyze to process it. "
-                        "If you want to replace it, use the FILE UPLOADER box above to choose another file."
-                    )
+                    if is_new_file:
+                        st.info(
+                            "File Uploaded Successfuly ... Click ANALYZE Button for Further Processing!"
+                        )
+                    else:
+                        st.info(
+                            "Same File Already Exists ... Click ANALYZE Button for Further Processing!"
+                        )
 
         st.markdown('<div class="sidebar-section-title">Transcript</div>', unsafe_allow_html=True)
         language = st.selectbox(
@@ -518,17 +543,19 @@ def main() -> None:
             if uploaded_file is None:
                 st.error("Please upload a local video or audio file.")
             else:
-                from src.audio import save_uploaded_file
+                from src.audio import save_uploaded_file, get_uploaded_file_source_id
+
+                source_id = get_uploaded_file_source_id(uploaded_file)
+                if "file_new_status" in st.session_state and source_id in st.session_state.file_new_status:
+                    del st.session_state.file_new_status[source_id]
 
                 try:
                     upload_result = save_uploaded_file(uploaded_file)
                 except Exception as exc:
                     st.error(f"Unable to save uploaded file: {exc}")
                 else:
-                    if upload_result.already_exists:
-                        st.info("This file has already been uploaded. Reusing the existing copy.")
-                    else:
-                        st.success("File uploaded successfully.")
+                    st.session_state.processing_started = True
+                    st.info("Processing Start for the Uploaded File!")
                     reset_pipeline_state()
                     st.session_state.processing = True
                     st.session_state.pipeline_source = str(upload_result.path)
