@@ -116,12 +116,13 @@ def render_chat_history() -> None:
     if not st.session_state.get("chat_history"):
         st.markdown("""
         <div class="card chat-empty-state">
+            <div class="pipeline-tag" style="width:fit-content; display:inline-block;">VIDEO & MEETING CHAT ARENA</div>
             <div class="chat-empty-icon">🤖</div>
             <div class="section-subtitle">Ask anything about the transcript. The assistant will answer from the processed video or meeting context.</div>
         </div>""", unsafe_allow_html=True)
         return
 
-    chat_html = '<div class="chat-container">'
+    chat_html = '<div class="chat-container"><div class="pipeline-tag" style="width:fit-content; display:inline-block; margin-bottom:1rem;">VIDEO & MEETING CHAT ARENA</div>'
     for msg in st.session_state.chat_history:
         content = html.escape(msg['content']).replace('\n', '<br>')
         if msg["role"] == "user":

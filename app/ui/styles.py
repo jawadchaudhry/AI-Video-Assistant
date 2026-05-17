@@ -228,6 +228,12 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--surface-2) !important;
 }
 
+[data-testid="stSidebar"] .stButton > button,
+[data-testid="stSidebar"] div[data-testid="stButton"] > button {
+    background: linear-gradient(135deg, var(--accent), #5b21b6) !important;
+    color: white !important;
+}
+
 [data-testid="stSidebar"] div[data-testid="stAlert"] {
     font-size: 0.78rem !important;
     line-height: 1.45 !important;
@@ -464,6 +470,8 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .card-content {

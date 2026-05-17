@@ -138,9 +138,9 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
             """
             <div class="hero-shell">
                 <div class="hero-title" style="font-size:1.4rem">Video & Meeting</div>
-                <div class="hero-sub">AI Chat-Assistant</div>
+                <div class="hero-sub">🤖  AI Chat-Assistant</div>
                 <div class="section-subtitle sidebar-note" style="margin-top:0.85rem; color:#ffffff; letter-spacing:0.06em; font-size:0.78rem; line-height:1.5">
-                    Videos <span style="display:inline-block; width:1.1em;"></span><span style="color:#ffffff;">&bull;</span><span style="display:inline-block; width:1.1em;"></span>Meetings <span style="display:inline-block; width:1.1em;"></span><span style="color:#ffffff;">&bull;</span><span style="display:inline-block; width:1.1em;"></span> Search
+                    Videos <span style="display:inline-block; width:1.1em;"></span><span style="color:#ffffff;">&bull;</span><span style="display:inline-block; width:1.1em;"></span>Meetings <span style="display:inline-block; width:1.1em;"></span><span style="color:#ffffff;">&bull;</span><span style="display:inline-block; width:1.1em;"></span> Searching
                 </div>
             </div>
             """,
@@ -410,11 +410,6 @@ def render_results(result: dict[str, Any]) -> None:
 
 def render_chat(result: dict[str, Any]) -> None:
     from src.storage.vector import ask_question
-
-    st.markdown(
-        '<div class="chat-arena-heading">Video & Meeting Chat Arena</div>',
-        unsafe_allow_html=True,
-    )
 
     render_chat_history()
 
