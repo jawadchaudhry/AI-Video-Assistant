@@ -1,13 +1,13 @@
 Restore point created for the current code state.
 
 Git commit:
-3990d1b
+130f69b
 
 Snapshot summary:
-- Completion message persists after chat interactions
-- 'All Process Completed Successfully!' stays visible after sending chat messages
-- Resets only when a new file is selected
-- Added file_processed_once session state flag
+- Fixed message change during chat interactions
+- Completion message persists after processing
+- Message only changes when new file is selected
+- Chat SEND button no longer affects sidebar message
 
 Files captured in the stable snapshot:
 - app/main.py (updated)

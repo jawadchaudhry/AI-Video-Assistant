@@ -48,10 +48,14 @@ def init_session_state() -> None:
         "pipeline_source": None,
         "pipeline_language": "english",
         "uploaded_file_is_new": None,
+        "clear_all_triggered": False,
     }
     for key, default in defaults.items():
         if key not in st.session_state:
             st.session_state[key] = default
+
+    if st.session_state.get("clear_all_triggered"):
+        st.session_state.clear_all_triggered = False
 
 
 def reset_pipeline_state() -> None:
@@ -202,7 +206,7 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
         uploaded_file: Any = None
 
         if source_mode == "URL":
-            st.caption("Paste a YouTube or meeting link.")
+            st.caption("Paste Youtube / Meeting Link Below:")
             source_value = st.text_input(
                 "Video URL",
                 placeholder="https://youtube.com/watch?v=...",
@@ -509,11 +513,32 @@ def render_chat(result: dict[str, Any]) -> None:
             }
         </style>
         """, unsafe_allow_html=True)
-        col_clear, _ = st.columns([1,3])
+        col_clear, col_all = st.columns([1,2])
         with col_clear:
             if st.button("Clear Chat", key="clear_chat", use_container_width=True):
                 st.session_state.chat_history = []
                 st.rerun()
+        with col_all:
+            if st.button("CLEAR ALL", key="clear_all", use_container_width=True):
+                st.session_state.chat_history = []
+                st.session_state.result = None
+                st.session_state.pipeline_done = False
+                st.session_state.pipeline_steps = {}
+                if "file_processed_once" in st.session_state:
+                    del st.session_state.file_processed_once
+                if "file_processing_complete" in st.session_state:
+                    del st.session_state.file_processing_complete
+                if "file_new_status" in st.session_state:
+                    st.session_state.file_new_status = {}
+                if "last_file_source_id" in st.session_state:
+                    del st.session_state.last_file_source_id
+                st.session_state.uploaded_file = None
+                st.session_state.clear_all_triggered = True
+                components.html("""
+                <script>
+                window.parent.location.reload();
+                </script>
+                """, height=0)
 
     st.markdown('<div id="chat-bottom"></div>', unsafe_allow_html=True)
 
@@ -589,7 +614,7 @@ def main() -> None:
     setTimeout(function() {
         var buttons = document.querySelectorAll('button');
         buttons.forEach(function(btn) {
-            if (btn.textContent.includes('Clear Chat')) {
+            if (btn.textContent.includes('Clear Chat') || btn.textContent.includes('CLEAR ALL')) {
                 btn.style.cssText = 'background: linear-gradient(135deg, #10b981, #059669) !important; color: white !important; border: none !important;';
             }
         });

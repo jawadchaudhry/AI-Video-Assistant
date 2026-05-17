@@ -66,7 +66,7 @@ def render_pipeline_train() -> None:
                     <div class="train-node {node_class('audio')}"></div>
                     <div class="train-stop-copy">
                         <div class="train-stop-title">Audio Extraction</div>
-                        <div class="train-stop-subtitle">Extract clean audio</div>
+                        <div class="train-stop-subtitle">EXTRACT CLEAN AUDIO</div>
                     </div>
                 </div>
                 <div class="train-connector {connector_class('summary')}"></div>
@@ -74,7 +74,7 @@ def render_pipeline_train() -> None:
                     <div class="train-node {node_class('summary')}"></div>
                     <div class="train-stop-copy">
                         <div class="train-stop-title">Transcript + Summary</div>
-                        <div class="train-stop-subtitle">Build searchable context</div>
+                        <div class="train-stop-subtitle">BUILD SEARCHABLE CONTEXT</div>
                     </div>
                 </div>
                 <div class="train-connector {connector_class('rag')}"></div>
@@ -82,7 +82,7 @@ def render_pipeline_train() -> None:
                     <div class="train-node {node_class('rag')}"></div>
                     <div class="train-stop-copy">
                         <div class="train-stop-title">RAG Chat</div>
-                        <div class="train-stop-subtitle">Ask follow-up questions</div>
+                        <div class="train-stop-subtitle">ASK FOLLOW-UP QUESTIONS</div>
                     </div>
                 </div>
             </div>

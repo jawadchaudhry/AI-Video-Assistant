@@ -337,7 +337,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .train-stop-subtitle {
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     color: var(--text-muted);
     line-height: 1.4;
 }
@@ -875,10 +875,22 @@ label { color: var(--text-muted) !important; font-size: 0.8rem !important; }
 .processing-progress-fill {
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg,#7c3aed,#06b6d4,#7c3aed);
-    background-size: 200% 100%;
+    background: linear-gradient(90deg, #7c3aed, #06b6d4, #8b5cf6, #06b6d4, #7c3aed);
+    background-size: 300% 100%;
     border-radius: 6px;
-    animation: progress 1.5s ease-in-out infinite;
+    animation: progress-flow 2s linear infinite;
+}
+
+@keyframes progress-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .processing-steps {
