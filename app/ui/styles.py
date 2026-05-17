@@ -904,6 +904,8 @@ label { color: var(--text-muted) !important; font-size: 0.8rem !important; }
     margin-bottom: 1rem;
     color: #e8e8f0;
 }
+
+
 </style>
 """
 

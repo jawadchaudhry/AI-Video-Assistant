@@ -197,7 +197,7 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
 
                 if uploaded_file_already_exists(uploaded_file):
                     st.info(
-                        "This file is already uploaded, so please click inside the File Uploader Box and upload the new file."
+                        ' Said File(s), Already Uploaded, Just Hit: "ANALYZE" Button  |  For New Uploadings, Click Inside the "UPLOADER BOX" Then Hit: "ANALYZE" Button Again. '
                     )
                 else:
                     st.info(
@@ -433,9 +433,20 @@ def render_chat(result: dict[str, Any]) -> None:
         st.rerun()
 
     if st.session_state.chat_history:
-        if st.button("Clear Chat", type="secondary"):
-            st.session_state.chat_history = []
-            st.rerun()
+        st.markdown("""
+        <style>
+            div[data-testid="stBottomBlockContainer"] button {
+                background: linear-gradient(135deg, #7c3aed, #5b21b6) !important;
+                color: white !important;
+                border: none !important;
+            }
+        </style>
+        """, unsafe_allow_html=True)
+        col_clear, _ = st.columns([1,3])
+        with col_clear:
+            if st.button("Clear Chat", key="clear_chat", use_container_width=True):
+                st.session_state.chat_history = []
+                st.rerun()
 
     st.markdown('<div id="chat-bottom"></div>', unsafe_allow_html=True)
 
@@ -503,6 +514,30 @@ def main() -> None:
         render_chat(st.session_state.result)
     else:
         render_empty_state()
+
+    st.markdown("""
+    <script>
+    setTimeout(function() {
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function(btn) {
+            if (btn.textContent.includes('Clear Chat')) {
+                btn.style.cssText = 'background: linear-gradient(135deg, #10b981, #059669) !important; color: white !important; border: none !important;';
+            }
+        });
+    }, 500);
+    </script>
+    """, unsafe_allow_html=True)
+
+    st.markdown(
+        """
+        <div style="text-align:center; margin-top:3rem; padding:1rem; border-top:1px solid rgba(255,255,255,0.1);">
+            <span style="color:#8888aa; font-size:0.75rem; letter-spacing:0.1em;">
+                © 2026 &nbsp; <em style="font-weight:700; font-size:0.85rem;">AnalytiXSOL</em> — All Rights Reserved | Powered by AI Intelligence.
+            </span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 if __name__ == "__main__":
