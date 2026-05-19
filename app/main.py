@@ -363,10 +363,42 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
 def render_main_area() -> None:
     st.markdown(
         """
-        <div class="hero-shell">
-            <div class="badge badge-cyan">Meeting intelligence workspace</div>
-            <div class="hero-title hero-title-spaced">Video & Meeting AI Chat-Assistant</div>
-            <div class="hero-sub">Transcribe | Summarize | Chat with your videos and meetings</div>
+        <div class="workspace-grid">
+            <div class="workspace-panel">
+                <div class="workspace-kicker">Meeting intelligence workspace</div>
+                <div class="hero-title">Video & Meeting AI Chat-Assistant</div>
+                <div class="hero-sub">Transcribe | Summarize | Chat</div>
+                <div class="workspace-copy">
+                    Upload a local file or paste a link, then let the pipeline extract audio,
+                    build searchable context, and answer questions from the transcript.
+                </div>
+                <div class="feature-row">
+                    <div class="feature-card">
+                        <div class="feature-card-title">Audio</div>
+                        <div class="feature-card-copy">Clean extraction and chunking for long meetings.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-title">Summary</div>
+                        <div class="feature-card-copy">Compact, readable meeting synthesis.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-title">RAG Chat</div>
+                        <div class="feature-card-copy">Ask questions grounded in the transcript.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="workspace-side">
+                <div class="metric-card">
+                    <div class="metric-label">Pipeline</div>
+                    <div class="metric-value">3 stages</div>
+                    <div class="metric-copy">Audio extraction, transcript intelligence, and follow-up chat.</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Input</div>
+                    <div class="metric-value">URL or File</div>
+                    <div class="metric-copy">Use local files for the most reliable public demo on Spaces.</div>
+                </div>
+            </div>
         </div>
         """,
         unsafe_allow_html=True,

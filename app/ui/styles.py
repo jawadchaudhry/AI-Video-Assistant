@@ -74,6 +74,125 @@ html, body, [class*="css"] {
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
 }
 
+.workspace-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.85fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.workspace-panel {
+    position: relative;
+    overflow: hidden;
+    padding: 1.2rem 1.35rem;
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(17, 17, 24, 0.96), rgba(10, 10, 15, 0.98));
+    border: 1px solid rgba(42, 42, 58, 0.95);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+}
+
+.workspace-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.12), transparent 32%);
+    pointer-events: none;
+}
+
+.workspace-panel > * {
+    position: relative;
+    z-index: 1;
+}
+
+.workspace-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.18rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(6, 182, 212, 0.12);
+    border: 1px solid rgba(6, 182, 212, 0.24);
+    color: var(--accent-2);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+}
+
+.workspace-copy {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 58ch;
+    margin-top: 0.75rem;
+}
+
+.feature-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.feature-card {
+    padding: 0.85rem 0.95rem;
+    border-radius: 16px;
+    background: rgba(8, 12, 22, 0.7);
+    border: 1px solid rgba(42, 42, 58, 0.9);
+}
+
+.feature-card-title {
+    color: var(--text);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.feature-card-copy {
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    line-height: 1.5;
+}
+
+.workspace-side {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.metric-card {
+    padding: 1rem 1rem 0.95rem;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(17, 17, 24, 0.96), rgba(8, 12, 22, 0.96));
+    border: 1px solid rgba(42, 42, 58, 0.95);
+}
+
+.metric-value {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-top: 0.2rem;
+}
+
+.metric-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.metric-copy {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.55;
+}
+
 .hero-shell::before {
     content: "";
     position: absolute;
@@ -94,7 +213,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-title {
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(1.7rem, 3.8vw, 2.6rem);
+    font-size: clamp(2rem, 4.2vw, 3rem);
     font-weight: 900;
     line-height: 1.1;
     margin: 0;
@@ -107,8 +226,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-sub {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    color: var(--text-muted);
+    font-size: 0.78rem;
+    color: var(--accent-2);
     letter-spacing: 0.05em;
     text-transform: uppercase;
     margin-top: 0.5rem;
@@ -472,7 +591,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     min-height: 320px;
     background:
-        radial-gradient(circle at top, rgba(124, 58, 237, 0.12), transparent 28%),
+        radial-gradient(circle at top, rgba(124, 58, 237, 0.18), transparent 30%),
         linear-gradient(180deg, rgba(17, 17, 24, 0.96), rgba(12, 15, 24, 0.98));
     border: 1px solid rgba(42, 42, 58, 0.95);
     border-radius: 20px;
@@ -480,23 +599,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .empty-state-icon {
-    font-size: 4rem;
+    font-size: 3rem;
     margin-bottom: 1rem;
 }
 
 .empty-state-title {
-    font-size: 1.5rem;
+    font-size: 1.55rem;
     margin-bottom: 0.5rem;
 }
 
 .empty-state-copy {
-    max-width: 420px;
+    max-width: 560px;
+    margin-top: 0.3rem;
 }
 
 .empty-state-badges {
-    margin-top: 2rem;
+    margin-top: 1.4rem;
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
     justify-content: center;
 }

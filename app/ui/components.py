@@ -97,11 +97,10 @@ def render_empty_state() -> None:
     st.markdown("""
     <div class="empty-state">
         <div class="empty-state-icon">🎬</div>
-        <div class="section-header empty-state-title">
-            Ready to analyze
-        </div>
+        <div class="section-header empty-state-title">Ready to analyze</div>
         <div class="section-subtitle empty-state-copy">
-            Paste a YouTube link or upload a local file in the sidebar, choose a language, and click <strong>Analyze</strong> to start.
+            Start with a local file for the most reliable public demo, or try a link if the source is accessible.
+            Then click <strong>Analyze</strong> to generate transcript, summary, and chat context.
         </div>
         <div class="empty-state-badges">
             <span class="badge badge-purple">Transcription</span>
