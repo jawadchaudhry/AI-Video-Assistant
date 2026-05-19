@@ -103,9 +103,9 @@ This keeps long transcription jobs on a machine that stays alive, which is a bet
 
 1. Push your code to GitHub
 2. Create account at [huggingface.co](https://huggingface.co)
-3. Create new Space → Select "Streamlit" as SDK
+3. Create new Space → Select "Docker" as SDK
 4. Connect your GitHub repository
-5. Add secrets: `MISTRAL_API_KEY`
+5. Add secret: `MISTRAL_API_KEY`
 
 ### Option 2: Render
 
