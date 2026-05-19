@@ -143,6 +143,76 @@ html, body, [class*="css"] {
     font-size: 0.82rem;
 }
 
+.source-shell {
+    margin-top: 0.35rem;
+    padding: 0.95rem;
+    border-radius: 20px;
+    border: 1px solid rgba(42, 42, 58, 0.95);
+    background: linear-gradient(180deg, rgba(17, 17, 24, 0.96), rgba(10, 10, 15, 0.98));
+}
+
+.source-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.source-panel {
+    padding: 0.85rem;
+    border-radius: 18px;
+    border: 1px solid rgba(42, 42, 58, 0.9);
+    background: rgba(8, 12, 22, 0.76);
+}
+
+.source-panel-active {
+    border-color: rgba(124, 58, 237, 0.38);
+    box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.08) inset;
+}
+
+.source-panel-inactive {
+    opacity: 0.58;
+}
+
+.source-panel-title {
+    color: var(--text);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+}
+
+.source-panel-copy {
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    line-height: 1.55;
+    margin-bottom: 0.55rem;
+}
+
+.source-status {
+    margin-top: 0.65rem;
+    min-height: 2.8rem;
+    padding: 0.72rem 0.8rem;
+    border-radius: 14px;
+    background: rgba(8, 12, 22, 0.72);
+    border: 1px solid rgba(42, 42, 58, 0.85);
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    line-height: 1.5;
+}
+
+.source-status.success {
+    color: #86efac;
+    border-color: rgba(16, 185, 129, 0.35);
+    background: rgba(16, 185, 129, 0.08);
+}
+
+.source-status.info {
+    color: #93c5fd;
+    border-color: rgba(59, 130, 246, 0.28);
+    background: rgba(59, 130, 246, 0.08);
+}
+
 .hero-shell {
     position: relative;
     overflow: hidden;
