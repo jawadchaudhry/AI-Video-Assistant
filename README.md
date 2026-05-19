@@ -3,7 +3,8 @@ title: AI Video Assistant
 emoji: 🎥
 colorFrom: blue
 colorTo: gray
-sdk: docker
+sdk: streamlit
+sdk_version: 1.57.0
 app_port: 8501
 ---
 
