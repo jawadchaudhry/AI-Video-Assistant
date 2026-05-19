@@ -4,7 +4,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONFAULTHANDLER=1 \
     HF_HOME=/app/hf_cache \
-    TRANSFORMERS_CACHE=/app/hf_cache
+    TRANSFORMERS_CACHE=/app/hf_cache \
+    CACHE_DIR=/app/cache \
+    DOWNLOADS_DIR=/app/downloads
 
 WORKDIR /app
 

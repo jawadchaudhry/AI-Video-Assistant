@@ -14,6 +14,9 @@ services:
       - WHISPER_COMPUTE_TYPE=int8
       - EMBEDDING_MODEL=all-MiniLM-L6-v2
       - EMBEDDING_DEVICE=cpu
+      - CACHE_DIR=/app/cache
+      - DOWNLOADS_DIR=/app/downloads
+      - HF_HOME=/app/hf_cache
       - STREAMLIT_SERVER_HEADLESS=true
     volumes:
       - ./cache:/app/cache

@@ -1,3 +1,12 @@
+---
+title: AI Video Assistant
+emoji: 🎥
+colorFrom: blue
+colorTo: gray
+sdk: docker
+app_port: 8501
+---
+
 # AI Video Assistant
 
 AI-powered meeting intelligence system for transcription, summarization, and RAG-based Q&A.
@@ -74,6 +83,20 @@ export MISTRAL_API_KEY=your_api_key_here
 docker-compose up -d
 ```
 
+### Recommended Production-Shaped Free Deployment
+
+For the first public release, use an always-on VM and Docker:
+
+1. Create an Oracle Cloud Always Free VM.
+2. Install Docker and Docker Compose.
+3. Clone this repo on the VM.
+4. Add a `.env` file with `MISTRAL_API_KEY` and any optional overrides.
+5. Set `CACHE_DIR`, `DOWNLOADS_DIR`, and `HF_HOME` to persistent paths if you mount a data volume.
+6. Run `docker compose up -d --build`.
+7. Put Caddy or Nginx in front of the app for HTTPS.
+
+This keeps long transcription jobs on a machine that stays alive, which is a better fit than a sleeping free web host.
+
 ## Cloud Deployment
 
 ### Option 1: Hugging Face Spaces (Recommended)
@@ -105,6 +128,9 @@ docker-compose up -d
 | Variable | Description |
 |----------|-------------|
 | `MISTRAL_API_KEY` | Required. Get from [Mistral Console](https://console.mistral.ai/) |
+| `CACHE_DIR` | Optional. Directory for transcript and Chroma cache files |
+| `DOWNLOADS_DIR` | Optional. Directory for downloaded or uploaded media |
+| `HF_HOME` | Optional. Hugging Face cache directory |
 
 ## Project Structure
 

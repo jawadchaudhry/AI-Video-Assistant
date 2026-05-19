@@ -2,7 +2,6 @@
 
 import os
 from pathlib import Path
-from typing import Optional
 from dataclasses import dataclass, field
 
 # Load .env file at module import time
@@ -18,6 +17,7 @@ class AppConfig:
     project_root: Path = field(default_factory=lambda: Path(__file__).parent.parent)
     cache_dir: Path = field(init=False)
     downloads_dir: Path = field(init=False)
+    hf_home: Path = field(init=False)
 
     # Whisper settings
     whisper_model: str = "tiny"
@@ -56,14 +56,28 @@ class AppConfig:
 
     def __post_init__(self):
         """Set computed paths and load environment variables."""
-        self.cache_dir = self.project_root / "cache"
-        self.downloads_dir = self.project_root / "downloads"
-        self.cache_dir.mkdir(exist_ok=True)
-        self.downloads_dir.mkdir(exist_ok=True)
+        self.cache_dir = self._resolve_path("CACHE_DIR", self.project_root / "cache")
+        self.downloads_dir = self._resolve_path("DOWNLOADS_DIR", self.project_root / "downloads")
+        self.hf_home = self._resolve_path("HF_HOME", self.project_root / "hf_cache")
+
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
+        self.downloads_dir.mkdir(parents=True, exist_ok=True)
+        self.hf_home.mkdir(parents=True, exist_ok=True)
 
         # Override with env vars if present
         self.whisper_model = os.getenv("WHISPER_MODEL", self.whisper_model)
         self.embedding_model = os.getenv("EMBEDDING_MODEL", self.embedding_model)
+
+    def _resolve_path(self, env_var: str, default_path: Path) -> Path:
+        """Resolve a configurable path from the environment."""
+        raw_value = os.getenv(env_var)
+        if not raw_value:
+            return default_path
+
+        resolved = Path(raw_value).expanduser()
+        if not resolved.is_absolute():
+            resolved = self.project_root / resolved
+        return resolved
 
     def validate(self) -> list[str]:
         """Validate configuration and return list of errors."""
