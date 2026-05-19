@@ -437,6 +437,28 @@ h1, h2, h3, h4, h5, h6 {
     min-height: 4.4rem;
 }
 
+[data-testid="stSidebar"] div[data-testid="stSegmentedControl"] {
+    background: linear-gradient(180deg, rgba(17, 17, 24, 0.96), rgba(26, 26, 37, 0.96));
+    border: 1px solid rgba(42, 42, 58, 0.95);
+    border-radius: 16px;
+    padding: 0.55rem;
+    margin: 0.2rem 0 0.75rem;
+    min-height: 4.3rem;
+}
+
+[data-testid="stSidebar"] div[data-testid="stSegmentedControl"] button {
+    border-radius: 999px !important;
+    min-height: 2rem !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+}
+
+[data-testid="stSidebar"] div[data-testid="stSegmentedControl"] button[aria-pressed="true"] {
+    background: linear-gradient(135deg, rgba(124,58,237,0.28), rgba(6,182,212,0.16)) !important;
+    border-color: rgba(124,58,237,0.45) !important;
+}
+
 [data-testid="stSidebar"] div[data-testid="stRadio"] > div {
     gap: 0.4rem;
 }

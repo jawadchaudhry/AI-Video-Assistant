@@ -205,10 +205,10 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
             '<div class="section-subtitle sidebar-note">Choose where the media comes from, then run the same processing pipeline.</div>',
             unsafe_allow_html=True,
         )
-        source_mode = st.radio(
+        source_mode = st.segmented_control(
             "Source type",
-            ["URL", "FILE"],
-            horizontal=True,
+            options=["URL", "FILE"],
+            default=st.session_state.get("source_mode", "URL"),
             disabled=is_processing,
             key="source_mode",
             label_visibility="collapsed",
