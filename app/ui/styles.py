@@ -149,12 +149,14 @@ html, body, [class*="css"] {
     border-radius: 20px;
     border: 1px solid rgba(42, 42, 58, 0.95);
     background: linear-gradient(180deg, rgba(17, 17, 24, 0.96), rgba(10, 10, 15, 0.98));
+    min-height: 20.5rem;
 }
 
 .source-stack {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    min-height: 18.5rem;
 }
 
 .source-panel {
@@ -162,6 +164,7 @@ html, body, [class*="css"] {
     border-radius: 18px;
     border: 1px solid rgba(42, 42, 58, 0.9);
     background: rgba(8, 12, 22, 0.76);
+    min-height: 4.75rem;
 }
 
 .source-panel-active {
@@ -191,7 +194,7 @@ html, body, [class*="css"] {
 
 .source-status {
     margin-top: 0.65rem;
-    min-height: 2.8rem;
+    min-height: 3.25rem;
     padding: 0.72rem 0.8rem;
     border-radius: 14px;
     background: rgba(8, 12, 22, 0.72);
@@ -431,6 +434,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 14px;
     padding: 0.65rem 0.75rem 0.5rem;
     margin: 0.2rem 0 0.75rem;
+    min-height: 4.4rem;
 }
 
 [data-testid="stSidebar"] div[data-testid="stRadio"] > div {
@@ -459,10 +463,13 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 14px;
     padding: 0.65rem 0.75rem 0.75rem;
     margin-top: 0.15rem;
+    min-height: 8.8rem;
+    overflow: hidden;
 }
 
 [data-testid="stSidebar"] div[data-testid="stTextInput"] {
     margin-bottom: 0.55rem;
+    min-height: 5.2rem;
 }
 
 [data-testid="stSidebar"] div[data-testid="stFileUploaderDropzone"] {
