@@ -1,7 +1,30 @@
+# Environment
 .env
+.env.local
 .venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+build/
+dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*~
+
+# Project Data
 cache/
 downloads/
 hf_cache/
-__pycache__/
-*.pyc
+*.log
+RESTORE_point.txt

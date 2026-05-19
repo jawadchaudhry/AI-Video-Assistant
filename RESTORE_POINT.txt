@@ -1,18 +1,14 @@
 Restore point created for the current code state.
 
 Git commit:
-0151b07
+6086aee
 
 Snapshot summary:
-- Added CLEAR ALL button to reset everything
-- Updated helper text for URL input to "Paste Youtube / Meeting Link Below:"
-- Capitalized train locomotive subtitles
-- Reduced font size for subtitles (0.65rem)
-- Enhanced progress bar gradient animation to match spinner
-- Fixed message box behavior during chat interactions
+- Updated processing steps text format
+- Added white bullet circles between steps
+- Vertically centered alignment for text and bullets
 
 Files captured in the stable snapshot:
 - app/main.py (updated)
-- app/ui/components.py (updated)
 - app/ui/styles.py (updated)
 - RESTORE_POINT.txt
