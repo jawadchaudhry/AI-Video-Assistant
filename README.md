@@ -97,6 +97,8 @@ For the first public release, use an always-on VM and Docker:
 
 This keeps long transcription jobs on a machine that stays alive, which is a better fit than a sleeping free web host.
 
+Note: YouTube URL ingestion can still be flaky on free hosted environments because yt-dlp depends on YouTube's public endpoints. If a URL fails, try again later or use a local upload for the same video.
+
 ## Cloud Deployment
 
 ### Option 1: Hugging Face Spaces (Recommended)
@@ -131,6 +133,9 @@ This keeps long transcription jobs on a machine that stays alive, which is a bet
 | `CACHE_DIR` | Optional. Directory for transcript and Chroma cache files |
 | `DOWNLOADS_DIR` | Optional. Directory for downloaded or uploaded media |
 | `HF_HOME` | Optional. Hugging Face cache directory |
+| `YTDLP_SOURCE_ADDRESS` | Optional. Bind address used by yt-dlp for outbound requests |
+| `YTDLP_SLEEP_INTERVAL` | Optional. Delay between yt-dlp requests |
+| `YTDLP_MAX_SLEEP_INTERVAL` | Optional. Maximum randomized delay between yt-dlp requests |
 
 ## Project Structure
 
