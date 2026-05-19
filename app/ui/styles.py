@@ -26,8 +26,17 @@ html, body, [class*="css"] {
     color: var(--text) !important;
 }
 
+.block-container {
+    max-width: 1280px !important;
+    padding-top: 1.25rem !important;
+    padding-bottom: 2.5rem !important;
+}
+
 .stApp {
-    background: var(--bg) !important;
+    background:
+        radial-gradient(circle at top left, rgba(124, 58, 237, 0.14), transparent 28%),
+        radial-gradient(circle at top right, rgba(6, 182, 212, 0.10), transparent 24%),
+        linear-gradient(180deg, #09090f 0%, #0a0a0f 100%) !important;
 }
 
 .stApp::before {
@@ -50,6 +59,32 @@ html, body, [class*="css"] {
 
 [data-testid="stSidebar"] * {
     color: var(--text) !important;
+}
+
+.hero-shell {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 1.1rem;
+    padding: 1.5rem 1.6rem;
+    border-radius: 24px;
+    border: 1px solid rgba(124, 58, 237, 0.25);
+    background:
+        linear-gradient(135deg, rgba(124, 58, 237, 0.16), rgba(17, 17, 24, 0.96) 50%, rgba(6, 182, 212, 0.12)),
+        rgba(17, 17, 24, 0.92);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+}
+
+.hero-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(159, 103, 255, 0.14), transparent 30%);
+    pointer-events: none;
+}
+
+.hero-shell > * {
+    position: relative;
+    z-index: 1;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -81,6 +116,23 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-title-spaced {
     margin-top: 0.8rem;
+}
+
+.section-header {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+    font-weight: 800;
+    line-height: 1.08;
+    color: var(--text) !important;
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+.section-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted) !important;
+    font-size: 0.92rem;
+    line-height: 1.65;
 }
 
 .sidebar-section-title {
@@ -256,10 +308,11 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 1rem;
     margin-bottom: 1.25rem;
     padding: 1.05rem 1.2rem 1rem;
-    background: linear-gradient(180deg, rgba(17, 17, 24, 0.92), rgba(12, 15, 24, 0.96));
-    border: 1px solid var(--border);
+    background:
+        linear-gradient(180deg, rgba(17, 17, 24, 0.92), rgba(12, 15, 24, 0.96));
+    border: 1px solid rgba(42, 42, 58, 0.95);
     border-radius: 20px;
-    box-shadow: var(--shadow);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
 }
 
 .train-copy {
@@ -396,13 +449,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .card {
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    border: 1px solid rgba(42, 42, 58, 0.95);
+    border-radius: 18px;
     padding: 1.5rem;
     margin-bottom: 1rem;
     position: relative;
     overflow: hidden;
     transition: border-color 0.2s;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.2);
 }
 
 .card:hover {
@@ -414,8 +468,15 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 5rem 2rem;
+    padding: 2.5rem 1.8rem;
     text-align: center;
+    min-height: 320px;
+    background:
+        radial-gradient(circle at top, rgba(124, 58, 237, 0.12), transparent 28%),
+        linear-gradient(180deg, rgba(17, 17, 24, 0.96), rgba(12, 15, 24, 0.98));
+    border: 1px solid rgba(42, 42, 58, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
 }
 
 .empty-state-icon {
