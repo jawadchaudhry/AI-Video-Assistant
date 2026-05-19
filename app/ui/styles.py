@@ -61,6 +61,88 @@ html, body, [class*="css"] {
     color: var(--text) !important;
 }
 
+.sidebar-shell {
+    position: relative;
+    overflow: hidden;
+    padding: 1rem 1rem 1.05rem;
+    margin-bottom: 0.9rem;
+    border-radius: 22px;
+    border: 1px solid rgba(42, 42, 58, 0.95);
+    background:
+        radial-gradient(circle at top right, rgba(124, 58, 237, 0.16), transparent 35%),
+        linear-gradient(180deg, rgba(17, 17, 24, 0.96), rgba(10, 10, 15, 0.98));
+}
+
+.sidebar-shell::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), transparent 45%);
+    pointer-events: none;
+}
+
+.sidebar-shell > * {
+    position: relative;
+    z-index: 1;
+}
+
+.sidebar-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.sidebar-brand-kicker {
+    color: var(--accent-2);
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.sidebar-brand-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text);
+}
+
+.sidebar-brand-copy {
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    line-height: 1.6;
+    max-width: 28ch;
+}
+
+.sidebar-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin-top: 0.85rem;
+}
+
+.sidebar-mini {
+    padding: 0.62rem 0.72rem;
+    border-radius: 16px;
+    background: rgba(8, 12, 22, 0.72);
+    border: 1px solid rgba(42, 42, 58, 0.9);
+}
+
+.sidebar-mini-label {
+    color: var(--text-muted);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.22rem;
+}
+
+.sidebar-mini-value {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 0.82rem;
+}
+
 .hero-shell {
     position: relative;
     overflow: hidden;
@@ -1089,6 +1171,46 @@ label { color: var(--text-muted) !important; font-size: 0.8rem !important; }
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--text);
+}
+
+.result-hero {
+    padding: 1.2rem 1.25rem;
+    margin-bottom: 1rem;
+    border-radius: 22px;
+    background:
+        radial-gradient(circle at top right, rgba(124, 58, 237, 0.14), transparent 28%),
+        linear-gradient(180deg, rgba(17, 17, 24, 0.96), rgba(8, 12, 22, 0.96));
+    border: 1px solid rgba(42, 42, 58, 0.95);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+}
+
+.result-kicker {
+    color: var(--accent-2);
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+}
+
+.result-meta {
+    margin-top: 0.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.result-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(8, 12, 22, 0.74);
+    border: 1px solid rgba(42, 42, 58, 0.9);
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .chat-arena-heading {

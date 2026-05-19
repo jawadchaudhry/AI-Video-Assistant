@@ -175,11 +175,23 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
     with st.sidebar:
         st.markdown(
             """
-            <div class="hero-shell">
-                <div class="hero-title" style="font-size:1.4rem">Video & Meeting</div>
-                <div class="hero-sub">🤖  AI Chat-Assistant</div>
-                <div class="section-subtitle sidebar-note" style="margin-top:0.85rem; color:#ffffff; letter-spacing:0.06em; font-size:0.78rem; line-height:1.5">
-                    Videos <span style="display:inline-block; width:1.1em;"></span><span style="color:#ffffff;">&bull;</span><span style="display:inline-block; width:1.1em;"></span>Meetings <span style="display:inline-block; width:1.1em;"></span><span style="color:#ffffff;">&bull;</span><span style="display:inline-block; width:1.1em;"></span> Searching
+            <div class="sidebar-shell">
+                <div class="sidebar-brand">
+                    <div class="sidebar-brand-kicker">AI Video Assistant</div>
+                    <div class="sidebar-brand-title">Video & Meeting</div>
+                    <div class="sidebar-brand-copy">
+                        Turn recordings into a searchable workspace for summaries, decisions, and Q&A.
+                    </div>
+                </div>
+                <div class="sidebar-mini-grid">
+                    <div class="sidebar-mini">
+                        <div class="sidebar-mini-label">Mode</div>
+                        <div class="sidebar-mini-value">URL or File</div>
+                    </div>
+                    <div class="sidebar-mini">
+                        <div class="sidebar-mini-label">Output</div>
+                        <div class="sidebar-mini-value">Transcript + RAG</div>
+                    </div>
                 </div>
             </div>
             """,
@@ -448,9 +460,14 @@ def render_processing_overlay() -> None:
 def render_results(result: dict[str, Any]) -> None:
     st.markdown(
         f"""
-        <div class="card">
-            <div class="card-title">Title</div>
+        <div class="result-hero">
+            <div class="result-kicker">Analysis complete</div>
             <div class="result-title">{result["title"]}</div>
+            <div class="result-meta">
+                <span class="result-pill">Transcript ready</span>
+                <span class="result-pill">Summary generated</span>
+                <span class="result-pill">Chat context built</span>
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
