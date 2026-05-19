@@ -205,76 +205,81 @@ def render_sidebar() -> tuple[str, str | None, Any, str, bool]:
         source_value: str | None = None
         uploaded_file: Any = None
 
-        if source_mode == "URL":
-            st.caption("Paste Youtube / Meeting Link Below:")
-            source_value = st.text_input(
-                "Video URL",
-                placeholder="https://youtube.com/watch?v=...",
-                disabled=is_processing,
-                label_visibility="collapsed",
-            ).strip()
-        else:
-            st.caption("Upload a local video or audio file. It will be copied into downloads before processing.")
-            st.markdown(
-                '<div class="upload-guidance-tag">FILE UPLOADER</div>',
-                unsafe_allow_html=True,
-            )
-            uploaded_file = st.file_uploader(
-                "Upload File",
-                type=ALLOWED_UPLOAD_TYPES,
-                disabled=is_processing,
-                accept_multiple_files=False,
-                label_visibility="collapsed",
-            )
-            st.markdown(
-                '<div class="upload-click-hint">Click Here!</div>',
-                unsafe_allow_html=True,
-            )
-            if uploaded_file is not None:
-                source_value = uploaded_file.name
-                from src.audio import uploaded_file_already_exists, get_uploaded_file_source_id
+        st.caption("Paste a YouTube / meeting link and keep local upload available below.")
+        source_value = st.text_input(
+            "Video URL",
+            placeholder="https://youtube.com/watch?v=...",
+            disabled=is_processing or source_mode != "URL",
+            label_visibility="collapsed",
+        ).strip() if source_mode == "URL" else st.text_input(
+            "Video URL",
+            placeholder="https://youtube.com/watch?v=...",
+            disabled=True,
+            label_visibility="collapsed",
+        ).strip()
 
-                source_id = get_uploaded_file_source_id(uploaded_file)
+        st.caption("Upload a local video or audio file. It will be copied into downloads before processing.")
+        st.markdown(
+            '<div class="upload-guidance-tag">FILE UPLOADER</div>',
+            unsafe_allow_html=True,
+        )
+        uploaded_file = st.file_uploader(
+            "Upload File",
+            type=ALLOWED_UPLOAD_TYPES,
+            disabled=is_processing or source_mode != "FILE",
+            accept_multiple_files=False,
+            label_visibility="collapsed",
+        )
+        st.markdown(
+            '<div class="upload-click-hint">Click Here!</div>',
+            unsafe_allow_html=True,
+        )
 
-                if "last_file_source_id" not in st.session_state:
-                    st.session_state.last_file_source_id = source_id
+        if source_mode == "FILE" and uploaded_file is not None:
+            source_value = uploaded_file.name
+            from src.audio import uploaded_file_already_exists, get_uploaded_file_source_id
 
-                is_new_file_selection = st.session_state.get("last_file_source_id") != source_id
+            source_id = get_uploaded_file_source_id(uploaded_file)
 
-                if is_new_file_selection:
-                    st.session_state.last_file_source_id = source_id
-                    if "file_processed_once" in st.session_state:
-                        del st.session_state.file_processed_once
+            if "last_file_source_id" not in st.session_state:
+                st.session_state.last_file_source_id = source_id
 
-                if "file_new_status" not in st.session_state:
-                    st.session_state.file_new_status = {}
+            is_new_file_selection = st.session_state.get("last_file_source_id") != source_id
 
-                if source_id not in st.session_state.file_new_status:
-                    file_exists = uploaded_file_already_exists(uploaded_file)
-                    st.session_state.file_new_status[source_id] = not file_exists
+            if is_new_file_selection:
+                st.session_state.last_file_source_id = source_id
+                if "file_processed_once" in st.session_state:
+                    del st.session_state.file_processed_once
 
-                is_new_file = st.session_state.file_new_status.get(source_id, True)
+            if "file_new_status" not in st.session_state:
+                st.session_state.file_new_status = {}
 
-                if st.session_state.get("file_processed_once"):
-                    st.success("All Process Completed Successfully!")
-                elif st.session_state.get("file_processing_complete"):
-                    st.success("All Process Completed Successfully!")
-                    st.session_state.file_processed_once = True
-                    if "file_processing_complete" in st.session_state:
-                        del st.session_state.file_processing_complete
-                elif "processing_started" in st.session_state:
-                    st.info("Processing Start for the Uploaded File!")
-                elif is_processing:
-                    pass
+            if source_id not in st.session_state.file_new_status:
+                file_exists = uploaded_file_already_exists(uploaded_file)
+                st.session_state.file_new_status[source_id] = not file_exists
+
+            is_new_file = st.session_state.file_new_status.get(source_id, True)
+
+            if st.session_state.get("file_processed_once"):
+                st.success("All Process Completed Successfully!")
+            elif st.session_state.get("file_processing_complete"):
+                st.success("All Process Completed Successfully!")
+                st.session_state.file_processed_once = True
+                if "file_processing_complete" in st.session_state:
+                    del st.session_state.file_processing_complete
+            elif "processing_started" in st.session_state:
+                st.info("Processing Start for the Uploaded File!")
+            elif is_processing:
+                pass
+            else:
+                if is_new_file:
+                    st.info(
+                        "File Uploaded Successfuly ... Click ANALYZE Button for Further Processing!"
+                    )
                 else:
-                    if is_new_file:
-                        st.info(
-                            "File Uploaded Successfuly ... Click ANALYZE Button for Further Processing!"
-                        )
-                    else:
-                        st.info(
-                            "Same File Already Exists ... Click ANALYZE Button for Further Processing!"
-                        )
+                    st.info(
+                        "Same File Already Exists ... Click ANALYZE Button for Further Processing!"
+                    )
 
         st.markdown('<div class="sidebar-section-title">Transcript</div>', unsafe_allow_html=True)
         language = st.selectbox(
