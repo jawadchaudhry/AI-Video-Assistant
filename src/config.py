@@ -65,6 +65,7 @@ class AppConfig:
         self.hf_home.mkdir(parents=True, exist_ok=True)
 
         # Override with env vars if present
+        self.llm_model = os.getenv("LLM_MODEL", self.llm_model)
         self.whisper_model = os.getenv("WHISPER_MODEL", self.whisper_model)
         self.embedding_model = os.getenv("EMBEDDING_MODEL", self.embedding_model)
 
